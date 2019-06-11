@@ -890,6 +890,36 @@
 	\printglossary[type=\acronymtype]%
 }%
 
+%%%%%%%%%%%%%%%%%%%%%%
+%% LISTA DE QUADROS %%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\listofquadrosname}{Lista de Quadros}
+\newlistof[chapter]{quadros}{qua}{\listofquadrosname}
+
+\let\listofquadrosorig\listofquadros% Store original version
+\renewcommand{\listofquadros}{%
+  \addcontentsline{toc}{chapter}{\listofquadrosname}% Add toc line
+  \listofquadrosorig
+}
+
+\newenvironment{quadro}[1]{%
+  \par%
+  \addvspace{\baselineskip}%
+  \refstepcounter{quadros}%
+  {\centering {Quadro \thequadros: #1}\par}%
+  \addcontentsline{qua}{quadros}{\protect\numberline{\thequadros}#1}%
+  \addvspace{0.5\baselineskip}%
+  % \\%
+}{%
+  \par%
+  \addvspace{0.5\baselineskip}%
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% FIM LISTA DE QUADROS %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand{\@conteudoPreTextual}{%
 	\maketitle%
 	\if@qualificacao\else%
@@ -909,6 +939,7 @@
 	\tableofcontents%
 	\iftotalfigures\listoffigures\fi%
 	\iftotaltables\listoftables\fi%
+	\listofquadros
 	\@listofacronyms%
 
 	\textual%
